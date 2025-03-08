@@ -1,0 +1,36 @@
+a. Quantos serviços foram realizados por cada funcionário?
+
+SELECT f.nome AS funcionario, COUNT(o.ordem_id) AS total_servicos
+FROM Funcionario f
+JOIN OrdemServico o ON f.funcionario_id = o.funcionario_id
+GROUP BY f.nome;
+
+b. Qual é o valor total gasto por cada cliente em serviços?
+
+SELECT c.nome AS cliente, SUM(o.valor) AS total_gasto
+FROM Cliente c
+JOIN Veiculo v ON c.cliente_id = v.cliente_id
+JOIN OrdemServico o ON v.veiculo_id = o.veiculo_id
+GROUP BY c.nome;
+
+c. Qual a relação de peças utilizadas em cada serviço?
+
+SELECT o.ordem_id, p.nome AS peca, osp.quantidade
+FROM OrdemServico o
+JOIN OrdemServico_Peca osp ON o.ordem_id = osp.ordem_id
+JOIN Peca p ON osp.peca_id = p.peca_id
+ORDER BY o.ordem_id;
+
+d. Listar serviços que custaram mais de 200 reais e estão fechados.
+
+SELECT o.ordem_id, o.descricao_servico, o.valor
+FROM OrdemServico o
+WHERE o.valor > 200 AND o.status = 'Fechado'
+ORDER BY o.valor DESC;
+
+
+e. Relacionar o número de serviços e o valor total por status de serviço.
+
+SELECT o.status, COUNT(o.ordem_id) AS total_servicos, SUM(o.valor) AS total_valor
+FROM OrdemServico o
+GROUP BY o.status;
