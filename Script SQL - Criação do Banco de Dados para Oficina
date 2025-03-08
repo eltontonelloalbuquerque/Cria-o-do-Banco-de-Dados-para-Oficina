@@ -1,0 +1,71 @@
+-- Criando a tabela Cliente
+CREATE TABLE Cliente (
+    cliente_id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    telefone VARCHAR(20),
+    endereco VARCHAR(255),
+    email VARCHAR(100)
+);
+
+-- Criando a tabela Funcionário
+CREATE TABLE Funcionario (
+    funcionario_id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    cargo VARCHAR(50),
+    salario DECIMAL(10, 2),
+    telefone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- Criando a tabela Veículo
+CREATE TABLE Veiculo (
+    veiculo_id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id INT,
+    modelo VARCHAR(100),
+    marca VARCHAR(50),
+    ano INT,
+    placa VARCHAR(10),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id)
+);
+
+-- Criando a tabela OrdemServico
+CREATE TABLE OrdemServico (
+    ordem_id INT PRIMARY KEY AUTO_INCREMENT,
+    veiculo_id INT,
+    funcionario_id INT,
+    data_abertura DATE,
+    data_fechamento DATE,
+    status VARCHAR(20),
+    descricao_servico TEXT,
+    valor DECIMAL(10, 2),
+    FOREIGN KEY (veiculo_id) REFERENCES Veiculo(veiculo_id),
+    FOREIGN KEY (funcionario_id) REFERENCES Funcionario(funcionario_id)
+);
+
+-- Criando a tabela Pagamento
+CREATE TABLE Pagamento (
+    pagamento_id INT PRIMARY KEY AUTO_INCREMENT,
+    ordem_id INT,
+    valor_pago DECIMAL(10, 2),
+    data_pagamento DATE,
+    forma_pagamento VARCHAR(50),
+    FOREIGN KEY (ordem_id) REFERENCES OrdemServico(ordem_id)
+);
+
+-- Criando a tabela Peça
+CREATE TABLE Peca (
+    peca_id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    descricao TEXT,
+    preco DECIMAL(10, 2)
+);
+
+-- Criando a tabela OrdemServico_Peca (para relacionamento muitos-para-muitos entre OrdemServico e Peca)
+CREATE TABLE OrdemServico_Peca (
+    ordem_id INT,
+    peca_id INT,
+    quantidade INT,
+    PRIMARY KEY (ordem_id, peca_id),
+    FOREIGN KEY (ordem_id) REFERENCES OrdemServico(ordem_id),
+    FOREIGN KEY (peca_id) REFERENCES Peca(peca_id)
+);
