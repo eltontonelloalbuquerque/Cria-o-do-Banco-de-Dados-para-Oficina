@@ -1,0 +1,34 @@
+-- Inserindo dados na tabela Cliente
+INSERT INTO Cliente (nome, telefone, endereco, email) VALUES
+('Carlos Silva', '123456789', 'Rua X, 123', 'carlos@email.com'),
+('Maria Oliveira', '987654321', 'Rua Y, 456', 'maria@email.com');
+
+-- Inserindo dados na tabela Funcionario
+INSERT INTO Funcionario (nome, cargo, salario, telefone, email) VALUES
+('José Santos', 'Mecânico', 2500.00, '555123456', 'jose@email.com'),
+('Ana Costa', 'Atendente', 1800.00, '555987654', 'ana@email.com');
+
+-- Inserindo dados na tabela Veículo
+INSERT INTO Veiculo (cliente_id, modelo, marca, ano, placa) VALUES
+(1, 'Fusca', 'Volkswagen', 1975, 'ABC-1234'),
+(2, 'Civic', 'Honda', 2015, 'XYZ-5678');
+
+-- Inserindo dados na tabela OrdemServico
+INSERT INTO OrdemServico (veiculo_id, funcionario_id, data_abertura, data_fechamento, status, descricao_servico, valor) VALUES
+(1, 1, '2025-03-01', '2025-03-03', 'Fechado', 'Troca de óleo', 150.00),
+(2, 2, '2025-03-02', '2025-03-05', 'Fechado', 'Troca de pneus', 500.00);
+
+-- Inserindo dados na tabela Pagamento
+INSERT INTO Pagamento (ordem_id, valor_pago, data_pagamento, forma_pagamento) VALUES
+(1, 150.00, '2025-03-03', 'Dinheiro'),
+(2, 500.00, '2025-03-05', 'Cartão');
+
+-- Inserindo dados na tabela Peça
+INSERT INTO Peca (nome, descricao, preco) VALUES
+('Óleo Sintético', 'Óleo para motor de alta performance', 80.00),
+('Pneu Radial', 'Pneu para veículos de passeio', 120.00);
+
+-- Inserindo dados na tabela OrdemServico_Peca
+INSERT INTO OrdemServico_Peca (ordem_id, peca_id, quantidade) VALUES
+(1, 1, 2),
+(2, 2, 4);
